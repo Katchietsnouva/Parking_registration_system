@@ -12,7 +12,7 @@ def on_entry_click(entry, default_text):
 def on_focus_out(entry, default_text):
     if entry.get() == '':
         entry.insert(0, default_text)
-        entry.configure(font=('normal', 12))  # Set back to normal font
+        entry.configure(font=('normal', 14))  # Set back to normal font
 
 def getvals():
     print("Accepted too, of course")
