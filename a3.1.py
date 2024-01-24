@@ -2,48 +2,32 @@ import tkinter as tk
 import customtkinter as ctk
 from customtkinter import CTk, CTkLabel, CTkEntry, CTkCheckBox, CTkButton
 from PIL import ImageTk, Image
-import json
 
 def on_entry_click(entry, default_text):
     if entry.get() == default_text:
         entry.delete(0, tk.END)
         entry.insert(0, '')
-        entry.configure(font=('normal', 10))
+        entry.configure(font=('normal', 10))  # Set font size to 10
 
 def on_entry_typing(event, entry, default_text):
     current_text = entry.get()
     if current_text == default_text or current_text == '':
         entry.delete(0, tk.END)
-        entry.configure(font=('italic', 10))
+        entry.configure(font=('italic', 10))  # Italicize text, set font size to 10
     else:
-        entry.configure(font=('normal', 14))
+        entry.configure(font=('normal', 14))  # Set font size to 14 for user's input
 
 def on_focus_out(entry, default_text):
     if entry.get() == '':
         entry.insert(0, default_text)
-        entry.configure(font=('normal', 10))
-
-def check_fields(*args):
-    all_filled = all(entry_var.get() != f"{label} goes here" for entry_var, label in zip(entry_variables, field_labels))
-    submit_button.configure(state="normal" if all_filled else "disabled")
-
-
+        entry.configure(font=('normal', 10))  # Set font size to 10
 
 def getvals():
-    customer_data = {}
-    for label, entry_var in zip(field_labels, entry_variables):
-        customer_data[label] = entry_var.get()
+    print("Accepted too, of course")
 
-    with open("customerdb.json", "a") as json_file:
-        json.dump(customer_data, json_file)
-        json_file.write("\n")  # Add a newline for each entry
-
-    print("Customer data stored in customerdb.json")
-
-    # Clear the entry fields
-    for entry_var in entry_variables:
-        entry.delete(0, tk.END)
-
+def check_fields(*args):
+    all_filled = all(entry_var.get() for entry_var in entry_variables)
+    submit_button.configure(state="normal" if all_filled else "disabled")  # Enable or disable button
 
 root = CTk()
 root_width = 500
@@ -61,21 +45,24 @@ left_half_canvas = ctk.CTkFrame(Label_frame)
 # Form fields names and packing
 field_labels = ["Name", "Phone", "Gender", "Car Number Plate", "Time In", "Payment Mode"]
 entry_variables = [tk.StringVar() for _ in range(len(field_labels))]
+entries = []
 
 groups = [ctk.CTkFrame(left_half_canvas) for _ in range(len(field_labels))]
 for i, group in enumerate(groups):
     group.pack(padx=5, pady=2, fill=tk.X, expand=True)
 
-    label = ctk.CTkLabel(group, text=field_labels[i])
+    label = CTkLabel(group, text=field_labels[i])
     label.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.X, expand=True)
 
-    entry = ctk.CTkEntry(group, textvariable=entry_variables[i])
+    entry = CTkEntry(group, textvariable=entry_variables[i])
     entry.insert(0, f"{field_labels[i]} goes here")
-    entry.configure(font=('italic', 10))
+    entry.configure(font=('italic', 10))  # Initial font style
     entry.pack(padx=5, pady=5, fill=tk.X, expand=True)
     entry.bind('<FocusIn>', lambda event, entry=entry, default_text=f"{field_labels[i]} goes here": on_entry_click(entry, default_text))
-    entry.bind('<Key>', lambda event, entry=entry, default_text=f"{field_labels[i]} goes here": on_entry_typing(event, entry, default_text))
+    entry.bind('<KeyRelease>', lambda event, entry=entry, default_text=f"{field_labels[i]} goes here": on_entry_typing(event, entry, default_text))
     entry.bind('<FocusOut>', lambda event, entry=entry, default_text=f"{field_labels[i]} goes here": on_focus_out(entry, default_text))
+    entry_variables[i].trace_add("write", check_fields)
+    entries.append(entry)
 
 # Creating Checkbox
 checkvalue = tk.IntVar()
@@ -86,13 +73,6 @@ checkbtn.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.X, expand=True)
 submit_button = CTkButton(left_half_canvas, text="Submit", command=getvals, state="disabled")
 submit_button.pack(side=tk.LEFT, padx=5, pady=5, fill=tk.X, expand=True)
 
-# Binding to check fields when any entry is updated
-for entry in entry_variables:
-    entry.trace_add('write', lambda *args: check_fields())
-
 left_half_canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-
-# Call the check_fields function initially
-check_fields()
 
 root.mainloop()
