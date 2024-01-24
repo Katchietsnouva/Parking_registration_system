@@ -67,6 +67,7 @@ def getvals():
 
     # Display a popup message with the customer number
     messagebox.showinfo("Success", f"Customer number {customer_number} data stored in {file_path}")
+    print(f"Customer number {customer_number} data stored in {file_path}")
 
     # Disable the submit button after submitting
     submit_button.configure(state="disabled")
