@@ -4,6 +4,7 @@ from customtkinter import CTk, CTkLabel, CTkEntry, CTkCheckBox, CTkButton
 from PIL import ImageTk, Image
 import os
 import json
+from tkinter import messagebox
 
 def on_entry_click(entry, default_text):
     if entry.get() == default_text:
@@ -30,14 +31,12 @@ def check_fields(*args):
     all_filled = all(entry_var.get() != f"{label} goes here" for entry_var, label in zip(entry_variables, field_labels))
     submit_button.configure(state="normal" if all_filled else "disabled")
 
-# Check if the file exists; if not, create an empty file
-file_path = "customerdb3.json"
-
-file_path = "customerdb3.json"
+file_path = "customerdb.json"
 
 if not os.path.exists(file_path):
     with open(file_path, "w") as json_file:
-        json_file.write("[]")  # Write an empty JSON array if the file doesn't exist
+        json_file.write("[]") 
+
 
 def getvals():
     customer_data = {}
@@ -47,15 +46,17 @@ def getvals():
         on_focus_out(entry, f"{label} goes here")
 
     with open(file_path, "r+") as json_file:
-        # Lock the file content during the operation
-        json_file.seek(0)
         content = json_file.read()
 
         # Parse the existing content as JSON
         existing_entries = json.loads(content)
 
-        # Append the new entry
-        existing_entries.append(customer_data)
+        # Determine the customer number dynamically
+        customer_number = len(existing_entries) + 1
+
+        # Append the new entry with the customer number
+        customer_entry = {"Customer Number": customer_number, **customer_data}
+        existing_entries.append(customer_entry)
 
         # Set the cursor to the beginning of the file and truncate the content
         json_file.seek(0)
@@ -64,16 +65,15 @@ def getvals():
         # Write the updated content back to the file
         json.dump(existing_entries, json_file, indent=2)
 
-    print("Customer data stored in customerdb3.json")
+    # Display a popup message with the customer number
+    messagebox.showinfo("Success", f"Customer number {customer_number} data stored in {file_path}")
 
     # Disable the submit button after submitting
     submit_button.configure(state="disabled")
 
     # Call the check_fields function to update the button state
     check_fields()
-        
-
-
+          
 root = CTk()
 root_width = 500
 root_height = 500
