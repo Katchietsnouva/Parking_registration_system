@@ -37,6 +37,36 @@ if not os.path.exists(file_path):
     with open(file_path, "w") as json_file:
         json_file.write("[]") 
 
+# def getvals():
+#     customer_data = {}
+#     for label, entry_var, entry in zip(field_labels, entry_variables, entries):
+#         customer_data[label] = entry_var.get()
+#         entry.delete(0, tk.END)
+#         on_focus_out(entry, f"{label} goes here")
+
+#     with open(file_path, "r+") as json_file:
+#         json_file.seek(0)
+#         content = json_file.read()
+
+#         # Parse the existing content as JSON.Append 
+#         existing_entries = json.loads(content)
+#         existing_entries.append(customer_data)
+
+#         # Set the cursor to the beginning of the file. Truncate content
+#         json_file.seek(0)
+#         json_file.truncate()
+
+#         # Write the updated content back to the file
+#         json.dump(existing_entries, json_file, indent=2)
+
+#     print(f"Customer data stored in {file_path}")
+#     messagebox.showinfo("Success", f"Customer data stored in {file_path}")
+
+
+#     # Disable the submit button. Call the check_fields function to update the button state
+#     submit_button.configure(state="disabled")
+#     check_fields()
+
 def getvals():
     customer_data = {}
     for label, entry_var, entry in zip(field_labels, entry_variables, entries):
@@ -45,28 +75,34 @@ def getvals():
         on_focus_out(entry, f"{label} goes here")
 
     with open(file_path, "r+") as json_file:
-        json_file.seek(0)
         content = json_file.read()
 
-        # Parse the existing content as JSON.Append 
+        # Parse the existing content as JSON
         existing_entries = json.loads(content)
-        existing_entries.append(customer_data)
 
-        # Set the cursor to the beginning of the file. Truncate content
+        # Determine the customer number dynamically
+        customer_number = len(existing_entries) + 1
+
+        # Append the new entry with the customer number
+        customer_entry = {"Customer Number": customer_number, **customer_data}
+        existing_entries.append(customer_entry)
+
+        # Set the cursor to the beginning of the file and truncate the content
         json_file.seek(0)
         json_file.truncate()
 
         # Write the updated content back to the file
         json.dump(existing_entries, json_file, indent=2)
 
-    print(f"Customer data stored in {file_path}")
-    messagebox.showinfo("Success", f"Customer data stored in {file_path}")
+    # Display a popup message with the customer number
+    messagebox.showinfo("Success", f"Customer number {customer_number} data stored in {file_path}")
 
-
-    # Disable the submit button. Call the check_fields function to update the button state
+    # Disable the submit button after submitting
     submit_button.configure(state="disabled")
+
+    # Call the check_fields function to update the button state
     check_fields()
-        
+          
 root = CTk()
 root_width = 500
 root_height = 500

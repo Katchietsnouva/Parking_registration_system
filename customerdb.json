@@ -30,5 +30,13 @@
     "Car Number Plate": "ww",
     "Time In": "ww",
     "Payment Mode": "ww"
+  },
+  {
+    "Name": "w",
+    "Phone": "w",
+    "Gender": "w",
+    "Car Number Plate": "w",
+    "Time In": "w",
+    "Payment Mode": "w"
   }
 ]
