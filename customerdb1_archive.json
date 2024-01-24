@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Philip",
+    "Phone": "0759924037",
+    "Gender": "Male",
+    "Car Number Plate": "KDF B00X",
+    "Time In": "1330",
+    "Payment Mode": "Mpesa"
+  },
+  {
+    "Name": "Pascal",
+    "Phone": "0700000009",
+    "Gender": "Male",
+    "Car Number Plate": "KDF B001X",
+    "Time In": "1400",
+    "Payment Mode": "Mpesa"
+  },
+  {
+    "Name": "Pius",
+    "Phone": "0700000008",
+    "Gender": "Male",
+    "Car Number Plate": "KDF B002X",
+    "Time In": "1430",
+    "Payment Mode": "Mpesa"
+  }
+]

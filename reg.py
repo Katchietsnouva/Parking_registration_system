@@ -62,7 +62,7 @@ def getvals():
         # Write the updated content back to the file
         json.dump(existing_entries, json_file, indent=2)
 
-    print("Customer data stored in customerdb3.json")
+    print(f"Customer data stored in {file_path}")
 
     # Disable the submit button after submitting
     submit_button.configure(state="disabled")
