@@ -65,5 +65,32 @@
     "Car Number Plate": "ww",
     "Time In": "w",
     "Payment Mode": "w"
+  },
+  {
+    "Customer Number": 9,
+    "Name": "ww",
+    "Phone": "we",
+    "Gender": "e",
+    "Car Number Plate": "e",
+    "Time In": "w",
+    "Payment Mode": "w"
+  },
+  {
+    "Customer Number": 10,
+    "Name": "w",
+    "Phone": "w",
+    "Gender": "w",
+    "Car Number Plate": "w",
+    "Time In": "w",
+    "Payment Mode": "w"
+  },
+  {
+    "Customer Number": 11,
+    "Name": "g",
+    "Phone": "wwg",
+    "Gender": "g",
+    "Car Number Plate": "g",
+    "Time In": "g",
+    "Payment Mode": "g"
   }
 ]
