@@ -72,6 +72,7 @@ for i, group in enumerate(groups):
     entry = ctk.CTkEntry(group, textvariable=entry_variables[i])
     entry.insert(0, f"{field_labels[i]} goes here")
     entry.configure(font=('italic', 10))
+    # entry.configure(font=('italic', 10))
     entry.pack(padx=5, pady=5, fill=tk.X, expand=True)
     entry.bind('<FocusIn>', lambda event, entry=entry, default_text=f"{field_labels[i]} goes here": on_entry_click(entry, default_text))
     entry.bind('<Key>', lambda event, entry=entry, default_text=f"{field_labels[i]} goes here": on_entry_typing(event, entry, default_text))
