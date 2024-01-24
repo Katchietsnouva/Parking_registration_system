@@ -4,6 +4,7 @@ from customtkinter import CTk, CTkLabel, CTkEntry, CTkCheckBox, CTkButton
 from PIL import ImageTk, Image
 import os
 import json
+from tkinter import messagebox
 
 def on_entry_click(entry, default_text):
     if entry.get() == default_text:
@@ -59,6 +60,8 @@ def getvals():
         json.dump(existing_entries, json_file, indent=2)
 
     print(f"Customer data stored in {file_path}")
+    messagebox.showinfo("Success", f"Customer data stored in {file_path}")
+
 
     # Disable the submit button. Call the check_fields function to update the button state
     submit_button.configure(state="disabled")
