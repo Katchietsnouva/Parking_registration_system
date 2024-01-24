@@ -31,9 +31,7 @@ def check_fields(*args):
     submit_button.configure(state="normal" if all_filled else "disabled")
 
 # Check if the file exists; if not, create an empty file
-file_path = "customerdb3.json"
-
-file_path = "customerdb3.json"
+file_path = "customerdb.json"
 
 if not os.path.exists(file_path):
     with open(file_path, "w") as json_file:
